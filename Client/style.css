@@ -1,0 +1,19 @@
+body {
+	text-align: center;
+}
+
+li {
+	text-align: center;
+	list-style-type: none;
+}
+
+ul {
+	padding-left:0;
+}
+
+#mapid {
+	height: 800px;
+	width: 90%;
+	width:60%;
+	margin: auto;
+}

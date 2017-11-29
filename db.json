@@ -1,0 +1,89 @@
+{
+	"Users": {
+			"x": {
+				"email": "...",
+				"firstName": "...",
+				"lastName": "...",
+				"phone": "...",
+				"profilePic": "PATH TO STORAGE",
+				"password": "IF STORED IN DB",
+				"dateOfReg": "...",
+				"role": "vendor OR consumer",
+				"stores": {
+					"1": {
+						"storeID": "Businesses.y.hpID"
+					},
+					"2": {
+						"storeID": "Businesses.y2.hpID"
+					}
+				}
+			}
+	},
+	
+	"Businesses": {
+		"y": {
+			"hpID": "...",
+			"name": "...",
+			"type": "selected from BusinessTypes",
+			"phones": {
+				"phone1": "...",
+				"phone2": "..."
+			}
+			"dateOfReg": "...",
+			"fax": "...",
+			"city": "selected from Cities",
+			"address": "..."
+			"email": "...",
+			"websites": {
+				"website": "...",
+				"facebook": "...",
+				"instagram": "...",
+				....?
+			}
+			"pictures": {
+				"1": {
+					"websites": "path to storage"
+					"comment": "..."
+				},
+				"2": {
+					"websites": "path to storage"
+					"comment": "..."
+				}
+			}
+			"description": "...",
+			"deals": {
+				"-JRHTHaIs-jNPLXOQivY": {
+					"storeID": "unique ID"
+				},
+				"-JRHTHaKuITFIhnj02kE": {
+					"storeID": "unique ID"
+				}
+			}
+		}
+	},
+	
+	"BusinessTypes": {
+		"1": "...",
+		list of types,
+		"last": "other"
+	},
+	
+	"Cities": {
+		"1": "...",
+		list of cities in israel
+	},
+	
+	"Products": {
+		
+	},
+	
+	"Deals": {
+		
+	},
+	
+	"Transactions": {
+		
+	},
+	
+	"Reviews":
+}
