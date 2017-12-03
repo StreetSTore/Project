@@ -1,4 +1,6 @@
 ﻿/.git/
+.vs/
 .settings/
 .project
 
+.gitignore
