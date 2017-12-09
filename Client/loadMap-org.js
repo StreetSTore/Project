@@ -62,6 +62,8 @@ function loadMap(){
 	var tailor = L.marker([32.07310, 34.76672], {icon: tailorIcon});
 	tailor.bindPopup(popup4);
 	
+	console.log(shop1);
+	
 	//creates layer of markers
 	var shops = L.layerGroup([shop1, shop2]);
 	var masters = L.layerGroup([cobbler, tailor]);

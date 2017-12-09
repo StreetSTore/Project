@@ -18,10 +18,9 @@ function myFunction2() {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var response = JSON.parse(this.responseText);
-			console.log(response);
 			document.getElementById("name").innerHTML = response[0].name;
 			document.getElementById("type").innerHTML = response[0].type;
-			document.getElementById("sub-sype").innerHTML = response[0].sub-type;
+			document.getElementById("sub-sype").innerHTML = response[0].sub_type;
 			document.getElementById("phone").innerHTML = response[0].phone;
 			document.getElementById("description").innerHTML = response[0].description;
 		}

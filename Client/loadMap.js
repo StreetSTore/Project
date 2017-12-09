@@ -10,6 +10,9 @@ const iconsPath = "images";
 const defaultZoom = 17;
 const iconSizeFactor = 1.5;
 var mymap;
+var numOfStores;
+var popups = [];
+var stores = [];
 
 function loadMap(){
 	//creates the map
@@ -23,22 +26,12 @@ function loadMap(){
 		accessToken: 'pk.eyJ1IjoiaWdvcmwzMDA5IiwiYSI6ImNqYWEzZnU2bjBlZTAyd3M0Z20zM2xkYjAifQ.AWTI7mLMA6ZQUJ8QmBY8xw'
 	}).addTo(mymap);
 
-	//creates markers with popups
+	//creates icons by types
 	var shopIcon = L.icon({
 		iconUrl: iconsPath + '/shop.png',
 		iconSize: [iconSize, iconSize],
 		iconAnchor: [iconAnchor, iconAnchor],
 		popupAnchor: [popupAnchorHor, popupAnchorVer],});
-	
-	var popup1 = L.popup()
-		.setContent("Best shop<br>Food, drinks and more")
-	var shop1 = L.marker([32.07315, 34.76639], {icon: shopIcon});
-	shop1.bindPopup(popup1);
-	
-	var popup2 = L.popup()
-		.setContent("All you need<br>24/7")
-	var shop2 = L.marker([32.07353, 34.76649], {icon: shopIcon});
-	shop2.bindPopup(popup2);
 		
 	var cobblerIcon = L.icon({
 		iconUrl: iconsPath + '/cobbler.png',
@@ -51,20 +44,38 @@ function loadMap(){
 		iconSize: [iconSize, iconSize],
 		iconAnchor: [iconAnchor, iconAnchor],
 		popupAnchor: [popupAnchorHor, popupAnchorVer],});
-	
-	var popup3 = L.popup()
-		.setContent("Repair all kind of shoes for 30 years!")
-	var cobbler = L.marker([32.07298, 34.76610], {icon: cobblerIcon});
-	cobbler.bindPopup(popup3);
 		
-	var popup4 = L.popup()
-		.setContent("Tailor made is us")
-	var tailor = L.marker([32.07310, 34.76672], {icon: tailorIcon});
-	tailor.bindPopup(popup4);
-	
 	//creates layer of markers
-	var shops = L.layerGroup([shop1, shop2]);
-	var masters = L.layerGroup([cobbler, tailor]);
+	var shops = L.layerGroup();
+	var masters = L.layerGroup();
+
+	//retrieves all stores, put them on the map and creates popups for them
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = JSON.parse(this.responseText);
+			numOfStores = response.length;
+			for (i = 0; i < numOfStores; i++){
+				stores[i] = L.marker([response[i].latitude, response[i].longitude]);
+				popups[i] = L.popup()
+					.setContent("<b>"+response[i].name+"</b><br>Type: "+response[i].type+"<br>Syb-type: "+response[i].sub_type+"<br>Phone: "+response[i].phone+"<br>"+response[i].description)
+				stores[i].bindPopup(popups[i]);
+				//adds icon to each marker depends on type
+				if(response[i].type == 1){
+					stores[i].setIcon(shopIcon);
+					shops.addLayer(stores[i]);
+				} else if (response[i].type == 2) {
+					stores[i].setIcon(cobblerIcon);
+					stores[i].addTo(masters);
+				} else if (response[i].type == 3) {
+					stores[i].setIcon(tailorIcon);
+					stores[i].addTo(masters);
+				}
+			};
+		}
+	};
+	xhttp.open("GET", "http://localhost:8080?method=retrieveAllStores", false);
+	xhttp.send();
 	
 	//adds and manages a layer control
 	var overlayMaps = {
@@ -157,32 +168,32 @@ function loadMap(){
 	
 	//manages the size of the markers depends on zoom level
 		//zooming out
-		if(prevZoom > mymap.getZoom()){
-			shopIcon.options.iconSize = [shopIcon.options.iconSize[0] / iconSizeFactor, shopIcon.options.iconSize[1] / iconSizeFactor];
-			shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] / iconSizeFactor, shopIcon.options.iconAnchor[1] / iconSizeFactor];
-			shop1.setIcon(shopIcon);
-			shop2.setIcon(shopIcon);
-			cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] / iconSizeFactor, cobblerIcon.options.iconSize[1] / iconSizeFactor];
-			cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] / iconSizeFactor, cobblerIcon.options.iconAnchor[1] / iconSizeFactor];
-			cobbler.setIcon(cobblerIcon);
-			tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] / iconSizeFactor, tailorIcon.options.iconSize[1] / iconSizeFactor];
-			tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] / iconSizeFactor, tailorIcon.options.iconAnchor[1] / iconSizeFactor];
-			tailor.setIcon(tailorIcon);
-		}
+		// if(prevZoom > mymap.getZoom()){
+			// shopIcon.options.iconSize = [shopIcon.options.iconSize[0] / iconSizeFactor, shopIcon.options.iconSize[1] / iconSizeFactor];
+			// shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] / iconSizeFactor, shopIcon.options.iconAnchor[1] / iconSizeFactor];
+			// shop1.setIcon(shopIcon);
+			// shop2.setIcon(shopIcon);
+			// cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] / iconSizeFactor, cobblerIcon.options.iconSize[1] / iconSizeFactor];
+			// cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] / iconSizeFactor, cobblerIcon.options.iconAnchor[1] / iconSizeFactor];
+			// cobbler.setIcon(cobblerIcon);
+			// tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] / iconSizeFactor, tailorIcon.options.iconSize[1] / iconSizeFactor];
+			// tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] / iconSizeFactor, tailorIcon.options.iconAnchor[1] / iconSizeFactor];
+			// tailor.setIcon(tailorIcon);
+		// }
 		
 		//zooming in
-		else if(prevZoom < mymap.getZoom()){
-			shopIcon.options.iconSize = [shopIcon.options.iconSize[0] * iconSizeFactor, shopIcon.options.iconSize[1] * iconSizeFactor];
-			shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] * iconSizeFactor, shopIcon.options.iconAnchor[1] * iconSizeFactor];
-			shop1.setIcon(shopIcon);
-			shop2.setIcon(shopIcon);
-			cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] * iconSizeFactor, cobblerIcon.options.iconSize[1] * iconSizeFactor];
-			cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] * iconSizeFactor, cobblerIcon.options.iconAnchor[1] * iconSizeFactor];
-			cobbler.setIcon(cobblerIcon);
-			tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] * iconSizeFactor, tailorIcon.options.iconSize[1] * iconSizeFactor];
-			tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] * iconSizeFactor, tailorIcon.options.iconAnchor[1] * iconSizeFactor];
-			tailor.setIcon(tailorIcon);
-		};
+		// else if(prevZoom < mymap.getZoom()){
+			// shopIcon.options.iconSize = [shopIcon.options.iconSize[0] * iconSizeFactor, shopIcon.options.iconSize[1] * iconSizeFactor];
+			// shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] * iconSizeFactor, shopIcon.options.iconAnchor[1] * iconSizeFactor];
+			// shop1.setIcon(shopIcon);
+			// shop2.setIcon(shopIcon);
+			// cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] * iconSizeFactor, cobblerIcon.options.iconSize[1] * iconSizeFactor];
+			// cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] * iconSizeFactor, cobblerIcon.options.iconAnchor[1] * iconSizeFactor];
+			// cobbler.setIcon(cobblerIcon);
+			// tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] * iconSizeFactor, tailorIcon.options.iconSize[1] * iconSizeFactor];
+			// tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] * iconSizeFactor, tailorIcon.options.iconAnchor[1] * iconSizeFactor];
+			// tailor.setIcon(tailorIcon);
+		// };
 		
 		if(prevZoom > mymap.getZoom()){
 			prevZoom--;
