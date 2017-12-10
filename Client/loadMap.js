@@ -13,6 +13,7 @@ var mymap;
 var numOfStores;
 var popups = [];
 var stores = [];
+var storesTypes =[];
 
 function loadMap(){
 	//creates the map
@@ -56,18 +57,19 @@ function loadMap(){
 			var response = JSON.parse(this.responseText);
 			numOfStores = response.length;
 			for (i = 0; i < numOfStores; i++){
+				storesTypes[i] = response[i].type;
 				stores[i] = L.marker([response[i].latitude, response[i].longitude]);
 				popups[i] = L.popup()
 					.setContent("<b>"+response[i].name+"</b><br>Type: "+response[i].type+"<br>Syb-type: "+response[i].sub_type+"<br>Phone: "+response[i].phone+"<br>"+response[i].description)
 				stores[i].bindPopup(popups[i]);
 				//adds icon to each marker depends on type
-				if(response[i].type == 1){
+				if(response[i].type == 'shop'){
 					stores[i].setIcon(shopIcon);
 					shops.addLayer(stores[i]);
-				} else if (response[i].type == 2) {
+				} else if(response[i].type == 'cobbler') {
 					stores[i].setIcon(cobblerIcon);
 					stores[i].addTo(masters);
-				} else if (response[i].type == 3) {
+				} else if(response[i].type == 'tailor') {
 					stores[i].setIcon(tailorIcon);
 					stores[i].addTo(masters);
 				}
@@ -88,9 +90,7 @@ function loadMap(){
 	checkBox1.addEventListener('change', function(){
 		if(this.checked){
 			isShopsLayerOn = true;
-		}
-		
-		else{
+		} else{
 			isShopsLayerOn = false;
 		};
 	});
@@ -100,9 +100,7 @@ function loadMap(){
 	checkBox2.addEventListener('change', function(){
 		if(this.checked){
 			isMastersLayerOn = true;
-		}
-		
-		else{
+		} else{
 			isMastersLayerOn = false;
 		};
 	});
@@ -125,9 +123,7 @@ function loadMap(){
 			checkBox1.addEventListener( 'change', function(){
 				if(this.checked){
 					isShopsLayerOn = true;
-				}
-				
-				else {
+				} else{
 					isShopsLayerOn = false;
 				}
 			});
@@ -139,11 +135,9 @@ function loadMap(){
 			checkBox2.addEventListener( 'change', function(){
 				if(this.checked){
 					isMastersLayerOn = true;
-				}
-				
-				else {
+				} else{
 					isMastersLayerOn = false;
-				}
+				};
 			});
 		};
 		
@@ -168,38 +162,48 @@ function loadMap(){
 	
 	//manages the size of the markers depends on zoom level
 		//zooming out
-		// if(prevZoom > mymap.getZoom()){
-			// shopIcon.options.iconSize = [shopIcon.options.iconSize[0] / iconSizeFactor, shopIcon.options.iconSize[1] / iconSizeFactor];
-			// shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] / iconSizeFactor, shopIcon.options.iconAnchor[1] / iconSizeFactor];
-			// shop1.setIcon(shopIcon);
-			// shop2.setIcon(shopIcon);
-			// cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] / iconSizeFactor, cobblerIcon.options.iconSize[1] / iconSizeFactor];
-			// cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] / iconSizeFactor, cobblerIcon.options.iconAnchor[1] / iconSizeFactor];
-			// cobbler.setIcon(cobblerIcon);
-			// tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] / iconSizeFactor, tailorIcon.options.iconSize[1] / iconSizeFactor];
-			// tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] / iconSizeFactor, tailorIcon.options.iconAnchor[1] / iconSizeFactor];
-			// tailor.setIcon(tailorIcon);
-		// }
+		if(prevZoom > mymap.getZoom()){
+			shopIcon.options.iconSize = [shopIcon.options.iconSize[0] / iconSizeFactor, shopIcon.options.iconSize[1] / iconSizeFactor];
+			shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] / iconSizeFactor, shopIcon.options.iconAnchor[1] / iconSizeFactor];
+			cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] / iconSizeFactor, cobblerIcon.options.iconSize[1] / iconSizeFactor];
+			cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] / iconSizeFactor, cobblerIcon.options.iconAnchor[1] / iconSizeFactor];
+			tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] / iconSizeFactor, tailorIcon.options.iconSize[1] / iconSizeFactor];
+			tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] / iconSizeFactor, tailorIcon.options.iconAnchor[1] / iconSizeFactor];
+			
+			for(i = 0; i < numOfStores; i++){
+				if(storesTypes[i] == 'shop'){
+					stores[i].setIcon(shopIcon);
+				} else if(storesTypes[i] == 'cobbler'){
+					stores[i].setIcon(cobblerIcon);
+				} else if(storesTypes[i] == 'tailor'){
+					stores[i].setIcon(tailorIcon);
+				}
+			};
+		}
 		
 		//zooming in
-		// else if(prevZoom < mymap.getZoom()){
-			// shopIcon.options.iconSize = [shopIcon.options.iconSize[0] * iconSizeFactor, shopIcon.options.iconSize[1] * iconSizeFactor];
-			// shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] * iconSizeFactor, shopIcon.options.iconAnchor[1] * iconSizeFactor];
-			// shop1.setIcon(shopIcon);
-			// shop2.setIcon(shopIcon);
-			// cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] * iconSizeFactor, cobblerIcon.options.iconSize[1] * iconSizeFactor];
-			// cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] * iconSizeFactor, cobblerIcon.options.iconAnchor[1] * iconSizeFactor];
-			// cobbler.setIcon(cobblerIcon);
-			// tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] * iconSizeFactor, tailorIcon.options.iconSize[1] * iconSizeFactor];
-			// tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] * iconSizeFactor, tailorIcon.options.iconAnchor[1] * iconSizeFactor];
-			// tailor.setIcon(tailorIcon);
-		// };
+		else if(prevZoom < mymap.getZoom()){
+			shopIcon.options.iconSize = [shopIcon.options.iconSize[0] * iconSizeFactor, shopIcon.options.iconSize[1] * iconSizeFactor];
+			shopIcon.options.iconAnchor = [shopIcon.options.iconAnchor[0] * iconSizeFactor, shopIcon.options.iconAnchor[1] * iconSizeFactor];
+			cobblerIcon.options.iconSize = [cobblerIcon.options.iconSize[0] * iconSizeFactor, cobblerIcon.options.iconSize[1] * iconSizeFactor];
+			cobblerIcon.options.iconAnchor = [cobblerIcon.options.iconAnchor[0] * iconSizeFactor, cobblerIcon.options.iconAnchor[1] * iconSizeFactor];
+			tailorIcon.options.iconSize = [tailorIcon.options.iconSize[0] * iconSizeFactor, tailorIcon.options.iconSize[1] * iconSizeFactor];
+			tailorIcon.options.iconAnchor = [tailorIcon.options.iconAnchor[0] * iconSizeFactor, tailorIcon.options.iconAnchor[1] * iconSizeFactor];
+
+			for(i = 0; i < numOfStores; i++){
+				if(storesTypes[i] == 'shop'){
+					stores[i].setIcon(shopIcon);
+				} else if(storesTypes[i] == 'cobbler'){
+					stores[i].setIcon(cobblerIcon);
+				} else if(storesTypes[i] == 'tailor'){
+					stores[i].setIcon(tailorIcon);
+				}
+			};
+		};
 		
 		if(prevZoom > mymap.getZoom()){
 			prevZoom--;
-		}
-		
-		else if(prevZoom < mymap.getZoom()){
+		} else if(prevZoom < mymap.getZoom()){
 			prevZoom++;
 		};
 	};
