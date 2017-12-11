@@ -1,3 +1,4 @@
+const defaultZoom = 17;
 const mapMinZoom = 12;
 const mapMaxZoom = 20;
 const minZoomWithMarkers = 16;
@@ -7,8 +8,13 @@ const iconAnchor = 10;
 const popupAnchorHor = 0;
 const popupAnchorVer = -8;
 const iconsPath = "images";
-const defaultZoom = 17;
 const iconSizeFactor = 1.5;
+
+const method = 'POST';
+const protocol = 'https';
+const serverUrl = 'vmedu138.mtacloud.co.il'
+const serverPort = 443;
+
 var mymap;
 var numOfStores;
 var popups = [];
@@ -76,7 +82,7 @@ function loadMap(){
 			};
 		}
 	};
-	xhttp.open("GET", "http://localhost:8080?method=retrieveAllStores", false);
+	xhttp.open(method, protocol + "://" + serverUrl + ":" + serverPort + "?method=retrieveAllStores", false);
 	xhttp.send();
 	
 	//adds and manages a layer control

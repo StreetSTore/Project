@@ -8,7 +8,7 @@ function myFunction1(num1, num2) {
 			document.getElementById("result1").innerHTML = this.responseText;
 		}
 	};
-	xhttp.open("GET", "http://localhost:8080?method=calc&num1=" + num1 + "&num2=" + num2, true);
+	xhttp.open("GET", "https://localhost:8080?method=calc&num1=" + num1 + "&num2=" + num2, true);
 	xhttp.send();
 }
 
@@ -25,6 +25,6 @@ function myFunction2() {
 			document.getElementById("description").innerHTML = response[0].description;
 		}
 	};
-	xhttp.open("GET", "http://localhost:8080?method=retrieveStoreForPopup&hpid=65481", true);
+	xhttp.open("GET", "https://localhost:8080?method=retrieveStoreForPopup&hpid=65481", true);
 	xhttp.send();
 }
