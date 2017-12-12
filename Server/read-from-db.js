@@ -1,6 +1,6 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var con = mysql.createConnection({
+const con = mysql.createConnection({
 	host: "vmedu138.mtacloud.co.il",
 	user: "root",
 	password: "StreetSt0re!",
@@ -23,14 +23,16 @@ module.exports = {
 		});
 	},
 	
-	//retrieve store information to display in map popup after user click
-	retrieveStoreForPopup(Callback) {
+	
+	
+	//retrieve specific store information
+	// retrieveStoreForPopup(Callback) {
 			
-		var sql = "SELECT hp_id, name, type, sub_type, phone, description, logo FROM stores";
+		// var sql = "SELECT hp_id, name, type, sub_type, phone, description, logo FROM stores";
 		//var sql = "SELECT hp_id, name, type, sub_type, phone, description, logo FROM stores WHERE hp_id =" + con.escape(hpid);
-		con.query(sql, function (err, result, fields) {
-			if (err) throw err;
-			Callback(result);
-		});
-	}
+		// con.query(sql, function (err, result, fields) {
+			// if (err) throw err;
+			// Callback(result);
+		// });
+	// }
 }

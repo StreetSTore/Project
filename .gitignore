@@ -7,3 +7,5 @@
 .gitattributes
 node_modules
 Server/test.js
+
+/server/localhost.pfx
