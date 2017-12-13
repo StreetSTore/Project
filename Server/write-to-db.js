@@ -14,8 +14,9 @@ con.connect(function(err) {
   
 module.exports = {
 	//registers new user
-	registerUser(Callback) {
-		var sql = "INSERT INTO users_data (first_name, last_name, email, role, registration_date, active, password) VALUES ('"+fName+"', '"+lName+"', '"+email+"', '"+role+"', '"+date+"', '"+1+"', '"+password+"')";
+	registerUser(params, Callback) {
+		var sql = "INSERT INTO users_data (first_name, last_name, email, role, registration_date, active, password) VALUES ("+con.escape(params.fName)+', '+con.escape(params.lName)+', '+con.escape(params.email)+', '
+				+con.escape(params.role)+', '+con.escape(params.date)+', 1, '+con.escape(params.hashedPass)+')';
 		con.query(sql, function (err, result) {
 			if (err) throw err;
 			Callback(result);

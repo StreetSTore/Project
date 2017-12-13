@@ -33,26 +33,14 @@ https.createServer(options, (req, res) => {
 		d = new Date();
 		date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 		
-		//password hashing
-		// var passHash;
-		// bcrypt.genSalt(saltRounds, function(Callback, passHash, err, salt){
-			// bcrypt.hash(query.password, salt, function(Callback, passHash, err, hash){
-					// console.log(1 + hash);
-					// Callback(hash);
-			// });
-			// console.log(2 + hash);
-			// return hash;
-		// });
-		
-		write.registerUser(function(data, fName, lName, email, role, date, password){
-			res.writeHead(200, {'Content-Type': 'text/plain'});
-			//res.write(JSON.stringify(data));
-			res.end();
+		bcrypt.genSalt(saltRounds, function(err, salt){
+			bcrypt.hash(query.password, salt, function(err, hashedPass){
+				write.registerUser({fName, lName, email, role, date, hashedPass}, function(results){
+					return;
+				});
+			});
 		});
 	}
-
 }).listen(serverPort);
-
-
 
 
