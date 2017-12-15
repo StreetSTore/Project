@@ -6,20 +6,16 @@ export function writetolog() {
   var pass=document.getElementById("password").value;
   var role=document.getElementById("firstName").value;
 
-  var data={
-   method: 'registerUser',
-   fName:fname,
-   lName:lname,
-   mail:mail,
-   password:pass,
-   role:role
-  };
-
-  var data_to_send=JSON.stringify(data);
   var xhttp = new XMLHttpRequest();
-  xhttp.open('GET', 'http://localhost:8080', true);
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = JSON.parse(this.responseText);
+			document.getElementById("result").innerHTML = response;
+		}
+	};
+  xhttp.open('POST', 'https://localhost:443?method=registerUser&fName=' + fname + "&lName=" + lname + "&email=" + mail + "&password=" + pass + "&role=" + role, true);
   xhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-  xhttp.send(data_to_send);
+  xhttp.send();
 
 return {};
 }

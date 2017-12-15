@@ -14,10 +14,13 @@ class BasicForm extends Component {
   onDrop(picture) {
     this.setState({pictures: this.state.pictures.concat(picture)});
   }
+  
+
 
   render() {
     return (
       <div>
+		  <div id = "result">fsdfsdf</div>
         <Form>
           { formApi => (
             <form  id="form2">
@@ -41,9 +44,11 @@ class BasicForm extends Component {
           <Text field="mail"  id="mail" /><br />
         <label htmlFor="password">Password:</label>
       <input type="password"  name="password" id="password"/><br /><br />
+	        <label htmlFor="img" >Upload Photo:</label>
+            <ImageUploader id="pic" withIcon={true} buttonText='Choose images' onChange={this.onDrop} imgExtension={['.jpg', '.gif', '.png', '.gif']} maxFileSize={5242880}/>
+          
 
           <button  onClick={writetolog.writetolog} className="mb-4 btn btn-primary">Submit</button>
-
 
             </form>
           )}
