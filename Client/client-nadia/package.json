@@ -48,6 +48,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-form": "^2.14.1",
+    "react-images-upload": "^1.1.1",
     "react-password": "^0.1.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
