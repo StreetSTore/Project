@@ -30,12 +30,11 @@ module.exports = {
 		});
 	},
 	
-	checkIfUserExists(Callback){
-		var sql = "SELECT COUNT(user_id) AS NumberOfUsers FROM users_data WHERE email =" + con.escape(email);
+	checkIfUserExists(params, Callback){
+		var sql = "SELECT COUNT(user_id) AS numberOfUsers FROM users_data WHERE email =" + con.escape(params.email);
 		con.query(sql, function (err, result, fields) {
 			if (err) throw err;
-			return;
-			//Callback(result);
+			Callback(result);
 		});
 	},
 	
