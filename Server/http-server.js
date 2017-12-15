@@ -29,38 +29,40 @@ https.createServer(options, (req, res) => {
 		});
 	}
 	
+	if (query.method == 'registerUser'){
+		email = query.email;	
+		read.checkIfUserExists({email}, function(data){
+			if(!data[0].numberOfUsers){
+				fName = query.fName;
+				lName = query.lName;
+				role = query.role;
+				d = new Date();
+				date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+		
+				bcrypt.genSalt(saltRounds, function(err, salt){
+					bcrypt.hash(query.password, salt, function(err, hashedPass){
+						write.registerUser({fName, lName, email, role, date, hashedPass}, function(result){
+							res.writeHead(200, {'Content-Type': 'text/plain'});
+							res.write(JSON.stringify("User created"));
+							res.end();
+						});
+					});
+				});
+			}
+			
+			else {
+				res.writeHead(200, {'Content-Type': 'text/plain'});
+				res.write(JSON.stringify("Email already exists"));
+				res.end();
+			};
+		});
+	}
+	
 	if (query.method == 'retrieveAllStores'){
 		read.retrieveAllStores(function(data){
 			res.writeHead(200, {'Content-Type': 'text/plain'});
 			res.write(JSON.stringify(data));
 			res.end();
-		});
-	}
-	
-	if (query.method == 'registerUser'){
-		fName = query.fName;
-		lName = query.lName;
-		email = query.email;
-		role = query.role;
-		d = new Date();
-		date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-		
-		//Doesnt work
-		read.checkIfUserExists((email), function(results){
-			if(results){
-				 console.log("Already exists...");
-				 return;
-			}
-		});
-		
-		bcrypt.genSalt(saltRounds, function(err, salt){
-			bcrypt.hash(query.password, salt, function(err, hashedPass){
-				write.registerUser({fName, lName, email, role, date, hashedPass}, function(result){
-					res.writeHead(200, {'Content-Type': 'text/plain'});
-					res.write(JSON.stringify(result));
-					res.end();
-				});
-			});
 		});
 	}
 }).listen(serverPort);
