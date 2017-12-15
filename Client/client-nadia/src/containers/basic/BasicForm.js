@@ -31,9 +31,9 @@ class BasicForm extends Component {
                   <div>
                   <label htmlFor="choose"><b>Choose:</b> </label><br />
                     <label htmlFor="customer" className="mr-2">I'm Customer</label>
-                  <Radio group={group} value="customer"  className="mr-3 d-inline-block" />
+                  <Radio group={group} value="1"  className="mr-3 d-inline-block" />
                   <label htmlFor="buisness" className="mr-2">I'm Buisness Owner</label>
-                    <Radio group={group} value="buisness"  className="d-inline-block" />
+                <Radio group={group} value="2"  className="d-inline-block" />
                   </div>
                 )}
               </RadioGroup>

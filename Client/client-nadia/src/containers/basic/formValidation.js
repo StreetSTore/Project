@@ -7,13 +7,17 @@ export function writetolog() {
   var role=document.getElementById("firstName").value;
 
   var data={
-   fname:fName,
-   lname:lName
+   method: 'registerUser',
+   fName:fname,
+   lName:lname,
+   mail:mail,
+   password:pass,
+   role:role
   };
 
   var data_to_send=JSON.stringify(data);
   var xhttp = new XMLHttpRequest();
-  xhttp.open('POST', 'https://localhost:443', true);
+  xhttp.open('GET', 'http://localhost:8080', true);
   xhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   xhttp.send(data_to_send);
 
