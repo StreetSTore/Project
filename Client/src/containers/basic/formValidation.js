@@ -1,3 +1,4 @@
+
 export function writetolog() {
 
   var fname=document.getElementById("firstName").value;

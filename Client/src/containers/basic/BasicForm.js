@@ -41,14 +41,13 @@ class BasicForm extends Component {
                 )}
               </RadioGroup>
             <label htmlFor="mail">Mail:</label>
-          <Text field="mail"  id="mail" /><br />
-        <label htmlFor="password">Password:</label>
-      <input type="password"  name="password" id="password"/><br /><br />
+			<Text field="mail"  id="mail" /><br />
+			<label htmlFor="password">Password:</label>
+			<input type="password"  name="password" id="password"/><br /><br />
 	        <label htmlFor="img" >Upload Photo:</label>
             <ImageUploader id="pic" withIcon={true} buttonText='Choose images' onChange={this.onDrop} imgExtension={['.jpg', '.gif', '.png', '.gif']} maxFileSize={5242880}/>
           
-
-          <button  onClick={writetolog.writetolog} className="mb-4 btn btn-primary">Submit</button>
+			<button  onClick={writetolog.writetolog} className="mb-4 btn btn-primary">Submit</button>
 
             </form>
           )}
