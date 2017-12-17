@@ -1,15 +1,16 @@
 const mysql = require('mysql');
+const config = require('./config.json');
 
 const con = mysql.createConnection({
-  host: "vmedu138.mtacloud.co.il",
-  user: "root",
-  password: "StreetSt0re!",
-  database: "test"
+	host: config.host,
+	user: config.user,
+	password: config.password,
+	database: config.database
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+	if (err) throw err;
+	console.log("Connected!");
 });
   
 module.exports = {

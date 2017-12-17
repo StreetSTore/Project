@@ -9,3 +9,4 @@ node_modules
 Server/test.js
 
 /server/localhost.pfx
+/server/config.json
