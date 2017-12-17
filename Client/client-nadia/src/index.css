@@ -1,3 +1,18 @@
 body {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
+.CreateAccount
+{
+  margin: 0 auto;
+  width: 500px;
+  border: 2px solid blue;
+  padding: 10px;
+  border-radius: 23px;
+  }
+.photoName{
+   color: blue;
+   font-size: 20px;
+}
+#pic{
+text-align: left;
+}
