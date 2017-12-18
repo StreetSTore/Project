@@ -12,7 +12,7 @@ const iconSizeFactor = 1.5;
 
 const method = 'POST';
 const protocol = 'https';
-const serverUrl = 'vmedu138.mtacloud.co.il'
+const serverUrl = 'localhost'
 const serverPort = 443;
 
 var mymap;
@@ -82,7 +82,7 @@ function loadMap(){
 			};
 		}
 	};
-	xhttp.open(method, protocol + "://" + serverUrl + ":" + serverPort + "?method=retrieveAllStores", false);
+	xhttp.open(config.method, config.protocol + "://" + config.host + ":" + config.port + "?method=retrieveAllStores", false);
 	xhttp.send();
 	
 	//adds and manages a layer control

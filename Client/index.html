@@ -8,8 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" href="3rdparty/leaflet/leaflet.css" />
 	
-	<!--script src="loadMap.js"></script-->
-	<script src="addToMap.js"></script>
+	<script type="text/javascript" src="./settings.js"></script>
+	<script src="loadMap.js"></script>
+	<!--script src="addToMap.js"></script-->
 	<script src="3rdparty/leaflet/leaflet.js"></script>
 	
     <title>StreetStore</title>
@@ -26,7 +27,8 @@
 	
 	<div id="mapid">
 		<script>
-			onload=addToMap();
+			onload=loadMap();
+			<!-- onload=addToMap(); -->
 		</script>
 	</div>
 	

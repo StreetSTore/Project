@@ -2,6 +2,8 @@ select * from stores;
 select * from users_data;
 select * from address;
 
+UPDATE stores SET is_active = 1 WHERE hp_id = 65492;
+
 DELETE FROM address where address_id = 1231;
 DELETE FROM stores where hp_id = 5555;
 

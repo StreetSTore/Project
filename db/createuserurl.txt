@@ -1,0 +1,5 @@
+https://localhost/?method=registerUser&fName=bob&lName=murray&email=bobsm@mail.com&role=1&pic=0101&password=Aa123
+
+https://localhost/?method=verifyCredentials&email=bobm@mail.com&password=Aa123
+
+https://localhost/?method=retrieveAllStores
