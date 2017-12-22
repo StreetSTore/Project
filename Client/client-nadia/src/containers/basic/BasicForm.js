@@ -56,8 +56,16 @@ class BasicForm extends Component {
 
   handleSubmitClicked() {
     this.setState({showErrors: true});
-    if($.isEmptyObject(this.state.validationErrors) === false) return null;
-    return this.props.onCreateAccount(this.state);
+    if($.isEmptyObject(this.state.validationErrors) === false) {
+      return null;
+    }
+    else{
+
+      //return this.props.onCreateAccount(this.state);
+      writetolog.writetolog(this.state);
+      return null;
+    }
+
   }
 
   onDrop(picture) {
@@ -69,11 +77,13 @@ class BasicForm extends Component {
     <div className="CreateAccount">
       <form>
       <h4>Create a New Account</h4><br/>
-    <TextView placeholder="First Name" showError={this.state.showErrors} text={this.props.firstName} onFieldChanged={this.handleFieldChanged("firstName")} errorText={this.errorFor("firstName")} name="fName" id="firstName" value="firsName"/><br/>
+
+      <TextView placeholder="First Name" showError={this.state.showErrors} text={this.props.firstName} onFieldChanged={this.handleFieldChanged("firstName")} errorText={this.errorFor("firstName")} name="fName" /><br/>
       <TextView placeholder="Last Name" showError={this.state.showErrors} text={this.props.firstName} onFieldChanged={this.handleFieldChanged("lastName")} errorText={this.errorFor("lastName")} name="lName" id="lastName"/><br/>
-    <TextView placeholder="Email Address" showError={this.state.showErrors} text={this.props.emailAddress} onFieldChanged={this.handleFieldChanged("emailAddress")} errorText={this.errorFor("emailAddress")} name="mail" id="mail" value="Email" /><br/>
+      <TextView placeholder="Email Address" showError={this.state.showErrors} text={this.props.emailAddress} onFieldChanged={this.handleFieldChanged("emailAddress")} errorText={this.errorFor("emailAddress")} name="mail" id="mail" value="Email" /><br/>
+    <input id="sushirole" type="hidden" class="one"/>
 <b>Choose Who are you:</b>
-    <RadioGroup id="role" name="role" onChange={this.onChange} horizontal value="1">
+    <RadioGroup id="role" name="role" onChange={writetolog.changeradio} horizontal value="1">
     <ReversedRadioButton value="1"  >
       Customer
     </ReversedRadioButton>
