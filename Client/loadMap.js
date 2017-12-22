@@ -20,6 +20,7 @@ var numOfStores;
 var popups = [];
 var stores = [];
 var storesTypes =[];
+var theMarker = {};
 
 function loadMap(){
 	//creates the map	
@@ -675,4 +676,28 @@ function loadMap(){
 			prevZoom++;
 		};
 	};
+};
+
+function addToMap(){
+	//creates the map
+	mymap1 = L.map('mapid').setView([32.07310, 34.76639], defaultZoom);
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		maxZoom: mapMaxZoom,
+		minZoom: mapMinZoom,
+		zoomDelta: 0.1,
+		id: 'mapbox.streets',
+		accessToken: 'pk.eyJ1IjoiaWdvcmwzMDA5IiwiYSI6ImNqYWEzZnU2bjBlZTAyd3M0Z20zM2xkYjAifQ.AWTI7mLMA6ZQUJ8QmBY8xw'
+	}).addTo(mymap1);
+
+	//puts a marker on map and gets the coordinates
+	mymap1.on('click', onMapClick);
+	function onMapClick(e) {
+		if (theMarker != undefined) {
+              mymap1.removeLayer(theMarker);
+        };
+
+		theMarker = L.marker([e.latlng.lat.toFixed(5), e.latlng.lng.toFixed(5)]).addTo(mymap1);
+		//final values of e.latlng.lat.toFixed(5) and e.latlng.lng.toFixed(5) must be saved in db 'address.latitude' and 'address.longitude';
+	}
 };

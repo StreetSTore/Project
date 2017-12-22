@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="client.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset=”UTF-8”>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="3rdparty/leaflet/leaflet.css" />
+	
+	<!-- <script src="client.js"></script> -->
+	<script src="loadMap.js"></script>
+	<script src="3rdparty/leaflet/leaflet.js"></script>
 </head>
 
 <body>
 
+	<nav>
+		<ul>
+			<li><a href="index.html" ><b>Index</b></a></li>
+		</ul>
+	</nav>
+
 <h2>The XMLHttpRequest Object</h2>
 
-<p id="demo">Enter two numbers</p>
+<!--p id="demo">Enter two numbers</p>
 
 <form action="">
   First number: <input type="number" name="num1"><br>
@@ -19,6 +33,12 @@
 <div>
 	<script>
 		onload=myFunction2(65481);
+	</script>
+</div-->
+
+<div id="mapid">
+	<script>
+		onload=addToMap();
 	</script>
 </div>
 
