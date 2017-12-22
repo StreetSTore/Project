@@ -22,7 +22,7 @@ var stores = [];
 var storesTypes =[];
 
 function loadMap(){
-	//creates the map
+	//creates the map	
 	mymap = L.map('mapid').setView([32.07518, 34.78728], defaultZoom);
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -32,6 +32,15 @@ function loadMap(){
 		id: 'mapbox.streets',
 		accessToken: 'pk.eyJ1IjoiaWdvcmwzMDA5IiwiYSI6ImNqYWEzZnU2bjBlZTAyd3M0Z20zM2xkYjAifQ.AWTI7mLMA6ZQUJ8QmBY8xw'
 	}).addTo(mymap);
+	
+	navigator.geolocation.getCurrentPosition(function(location) {
+		var personIcon = L.icon({
+			iconUrl: iconsPath + '/person.png',
+			iconSize: [iconSize, iconSize],
+			iconAnchor: [iconAnchor, iconAnchor],
+			popupAnchor: [popupAnchorHor, popupAnchorVer],});
+		L.marker([location.coords.latitude, location.coords.longitude], {icon: personIcon}).addTo(mymap).bindPopup("You are here");
+	});
 
 	//creates icons by types
 	var beddingIcon = L.icon({
@@ -569,7 +578,7 @@ function loadMap(){
 					stores[i].setIcon(beddingIcon);
 				} else if(storesTypes[i] == 'Clothes'){
 					stores[i].setIcon(clothesIcon);
-				} else if(storesTypes[i] == 'Clothes'){
+				} else if(storesTypes[i] == 'Cobbler'){
 					stores[i].setIcon(cobblerIcon);
 				} else if(storesTypes[i] == 'Electricity'){
 					stores[i].setIcon(electricityIcon);
@@ -636,7 +645,7 @@ function loadMap(){
 					stores[i].setIcon(beddingIcon);
 				} else if(storesTypes[i] == 'Clothes'){
 					stores[i].setIcon(clothesIcon);
-				} else if(storesTypes[i] == 'Clothes'){
+				} else if(storesTypes[i] == 'Cobbler'){
 					stores[i].setIcon(cobblerIcon);
 				} else if(storesTypes[i] == 'Electricity'){
 					stores[i].setIcon(electricityIcon);
