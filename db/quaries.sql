@@ -2,7 +2,11 @@ select * from stores;
 select * from users_data;
 select * from address;
 
-UPDATE stores SET is_active = 1 WHERE hp_id = 65492;
+INSERT INTO store_sub_types (type, sub_type) VALUES ('Workshop', 'Electronics'); 
+
+UPDATE address SET street_num = 1;
+
+SELECT stores.hp_id, stores.name, stores.type, stores.sub_type, stores.phone, stores.description, stores.logo, address.latitude, address.longitude FROM address INNER JOIN stores ON address.address_id = stores.address_id WHERE is_active = 1
 
 DELETE FROM address where address_id = 1231;
 DELETE FROM stores where hp_id = 5555;

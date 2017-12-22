@@ -285,6 +285,7 @@
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	display: block;
+
 	}
 .leaflet-bar a:hover {
 	background-color: #f4f4f4;
@@ -357,6 +358,7 @@
 	display: none;
 	}
 .leaflet-control-layers-expanded .leaflet-control-layers-list {
+	text-align: left;
 	display: block;
 	position: relative;
 	}
